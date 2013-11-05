@@ -41,6 +41,7 @@
         
         size = [[CCDirector sharedDirector] winSize];
         [self initLabels];
+        [self initMenu];
         /*
          prefs = [NSUserDefaults standardUserDefaults];
          NSDictionary* user = [prefs objectForKey:@"currentUser"];
@@ -94,72 +95,105 @@
     scoreLabel.position = ccp(125,size.height - 50);
     [self addChild:scoreLabel z:3];
     
+    infoLabel = [CCLabelTTF labelWithString:@"info label" fontName:@"Marker Felt" fontSize:25];
+    infoLabel.position = ccp(size.width/2, size.height/2 + 50);
+    infoLabel.visible = NO;
+    [self addChild:infoLabel z:3];
     
+    
+}
+
+-(void) initMenu{
+    [CCMenuItemFont setFontSize:20];
+    CCMenuItem* reGame = [CCMenuItemFont itemWithString:@"Try Again" target:self selector:@selector(reGame:)];
+    buttonMenu = [CCMenu menuWithItems:reGame, nil];
+    buttonMenu.position = ccp(infoLabel.position.x, infoLabel.position.y - 50);
+    buttonMenu.visible = NO;
+    [self addChild:buttonMenu z:3];
+}
+
+-(void) reGame:(id) sender{
+    lifes = 3;
+    infoLabel.visible = NO;
+    NSLog(@"point array %d",[pointArray count]);
+    [shape rebulidWith:pointArray];
+    [self removeChild:ball cleanup:YES];
+    [ball release];
+    ball = [cBall makeBallWithRad:10 atPos:CGPointMake(size.width/2, size.height/2)];
+    [self addChild:ball z:3];
+    buttonMenu.visible = NO;
+    [self scheduleUpdate];
+    self.isTouchEnabled = YES;
     
 }
 
 
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
+    if(currentLine == NULL){
+        currentLine = [[cLine alloc] init];
+        [self addChild:currentLine z:3];
+    }
     currentLine.startPoint = [touch locationInView: [touch view]];
     currentLine.startPoint = [[CCDirector sharedDirector] convertToGL: currentLine.startPoint];
     currentLine.endPoint = currentLine.startPoint;
-    //NSLog(@"startPoint.x %f startPoint.y %f", currentLine.startPoint.x, currentLine.startPoint.y);
+
     [currentLine draw];
     
 }
 
 -(void) ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
-    currentLine.endPoint = [touch locationInView:[touch view]];
-    currentLine.endPoint = [[CCDirector sharedDirector]convertToGL:currentLine.endPoint];
-    [currentLine draw];
-    /*
-     NSLog(@"endpoint.x %f endpoint.y %f", currentLine.endPoint.x, currentLine.endPoint.y);
-     NSLog(@"startPoint.x %f startPoint.y %f", currentLine.startPoint.x, currentLine.startPoint.y);*/
-    
+    if(currentLine != NULL){
+        currentLine.endPoint = [touch locationInView:[touch view]];
+        currentLine.endPoint = [[CCDirector sharedDirector]convertToGL:currentLine.endPoint];
+        if([currentLine interWithBall:ball]){
+            [self removeChild:currentLine cleanup:YES];
+            [currentLine release];
+            currentLine = NULL;
+            lifes--;
+        }else{
+            [currentLine draw];
+        }
+    }
 }
 
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *touch = [touches anyObject];
-    currentLine.endPoint = [touch locationInView:[touch view]];
-    currentLine.endPoint = [[CCDirector sharedDirector]convertToGL:currentLine.endPoint];
-    [currentLine draw];
-    if(shape != NULL){
-        [shape interWithBall:ball];
-        if(currentLine != NULL && ![currentLine interWithBall:ball]){
-            [shape interWithLine:currentLine];
-        }
-        [shape reshape];
-        [shape reshape];
+    if([currentLine interWithBall:ball]){
+        [currentLine release];
+        currentLine = NULL;
+        [self removeChild:currentLine cleanup:YES];
+        lifes --;
     }
-    /*
-     if([currentLine interWithBall:ball]){
-     if(lifes > 1){
-     lifes--;
-     [scoreLabel setString:[NSString stringWithFormat:@"%d",lifes]];
-     }
-     currentLine.endPoint = currentLine.startPoint;
-     }
-     
-     currentLine.endPoint = currentLine.startPoint;*/
+    if(currentLine != NULL){
+        currentLine.endPoint = [touch locationInView:[touch view]];
+        currentLine.endPoint = [[CCDirector sharedDirector]convertToGL:currentLine.endPoint];
+        [currentLine draw];
+        if(shape != NULL){
+            [shape interWithBall:ball];
+            if(currentLine != NULL && ![currentLine interWithBall:ball]){
+                [shape interWithLine:currentLine];
+            }
+            [shape reshape];
+        }
+        currentLine.endPoint = currentLine.startPoint;
+    }
     
-    currentLine.endPoint = currentLine.startPoint;
+    
     
     
 }
 
 -(void) update:(ccTime) dt{
-    if(currentLine != NULL){
-        
-        if([currentLine interWithBall:ball]){
-            currentLine.endPoint = currentLine.startPoint;
-            [currentLine draw];
-            if(lifes > 1){
-                lifes--;
-                [scoreLabel setString:[NSString stringWithFormat:@"%d",lifes]];
-            }
-        }
+    
+    [lifeLabel setString:[NSString stringWithFormat:@"%d",lifes]];
+    
+    
+    if(lifes < 0){
+        [lifeLabel setString:[NSString stringWithFormat:@"0"]];
+        [self stopGame];
+        [self checkForLose];
         
     }
     
@@ -171,7 +205,7 @@
     
     if (![self checkPoint:[ball getCenter] insideShape:shape]){
         [self stopGame];
-        NSLog(@"out!");
+        [self checkForLose];
     }
     
     if([self checkForWin]){
@@ -200,15 +234,19 @@
         }
     }
     area = sqrt(a);
-    
-    
 }
 
 -(void) stopGame{
     [self unscheduleUpdate];
     [ball unscheduleUpdate];
     self.isTouchEnabled = NO;
+    buttonMenu.visible = YES;
     
+}
+
+-(void) checkForLose{
+    [infoLabel setString:@"You Lose"];
+    infoLabel.visible = YES;
 }
 
 

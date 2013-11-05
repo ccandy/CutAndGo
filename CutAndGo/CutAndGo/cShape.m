@@ -17,7 +17,10 @@
 
 -(id) initShapeWith:(NSMutableArray *)ps layer:(CCLayer*) layer{
     if(self = [super init]){
-        points =ps;
+        points = [[NSMutableArray alloc] init];
+        for(int n = 0; n < [ps count]; n++){
+            [points addObject:[ps objectAtIndex:n]];
+        }
         tempPoints = [[NSMutableArray alloc] init];
         lines = [[NSMutableArray alloc] init];
         interPoints = [[NSMutableArray alloc] init];
@@ -60,7 +63,10 @@
 
 -(void) rebulidWith:(NSMutableArray *)ps{
     [self cleanShape];
-    points = ps;
+    [points removeAllObjects];
+    for(int n = 0; n < [ps count]; n++){
+        [points addObject:[ps objectAtIndex:n]];
+    }
     [self reshape];
 }
 
