@@ -183,4 +183,12 @@
     return [lines objectAtIndex:n];
 }
 
+-(int) getPointNumber{
+    return [points count];
+}
+
+-(CGPoint) getPoint:(int) n{
+    return [[points objectAtIndex:n] CGPointValue];
+}
+
 @end

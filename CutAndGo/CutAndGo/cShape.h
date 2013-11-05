@@ -29,4 +29,6 @@
 -(int) getLineNumber;
 -(cLine*) getLineIn:(int) n;
 -(void) rebulidWith:(NSMutableArray*) ps;
+-(int) getPointNumber;
+-(CGPoint) getPoint:(int) n;
 @end

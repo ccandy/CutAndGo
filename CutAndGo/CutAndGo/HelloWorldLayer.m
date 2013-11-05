@@ -169,10 +169,16 @@
         }
     }
     
+    if (![self checkPoint:[ball getCenter] insideShape:shape]){
+        [self stopGame];
+        NSLog(@"out!");
+    }
+    
     if([self checkForWin]){
         [self stopGame];
         [self calScore];
     }
+    
     
 }
 
@@ -194,7 +200,6 @@
         }
     }
     area = sqrt(a);
-    NSLog(@"%f",area);
     
     
 }
@@ -226,6 +231,40 @@
     }
     return NO;
 }
+
+-(BOOL) checkPoint:(CGPoint) point insideShape:(cShape*) s{
+    double angle = 0;
+    for(int n = 0; n < [s getPointNumber]-1; n++){
+        CGPoint p1 = ccp([s getPoint:n].x - point.x, [s getPoint:n].y - point.y);
+        CGPoint p2 = ccp([s getPoint:n+1].x - point.x, [s getPoint:n+1].y - point.y);
+        angle += [self findAngle:p1 point2:p2];
+    }
+    
+    if(angle < 0){
+        angle = -angle;
+    }
+    if (angle < M_PI) {
+        return false;
+    }else{
+        return true;
+    }
+}
+
+
+-(double) findAngle:(CGPoint) p1 point2:(CGPoint) p2{
+    double dtheta, theta1, theta2;
+    theta1 = atan2(p1.y, p1.x);
+    theta2 = atan2(p2.y, p2.x);
+    dtheta = theta2 - theta1;
+    while (dtheta > M_PI) {
+        dtheta -= 2 * M_PI;
+    }
+    while (dtheta <-M_PI) {
+        dtheta += 2 * M_PI;
+    }
+    return dtheta;
+}
+
 
 - (void) dealloc
 {
