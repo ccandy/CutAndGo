@@ -31,6 +31,19 @@
         size = [[CCDirector sharedDirector] winSize];
         [self initLabel];
         [self initMenu];
+        ball = [cBall makeBallWithRad:10 atPos:ccp(size.width/2,size.height/2)];
+        NSMutableArray* pointArray = [[NSMutableArray alloc] init];
+        CGPoint p1 = CGPointMake(size.width/2- 50, size.height/2+50);
+        [pointArray addObject:[NSValue valueWithCGPoint:p1]];
+        CGPoint p2 = CGPointMake(size.width/2+ 50,size.height/2+50);
+        [pointArray addObject:[NSValue valueWithCGPoint:p2]];
+        CGPoint p3 = CGPointMake(size.width/2+ 50,size.height/2-50);
+        [pointArray addObject:[NSValue valueWithCGPoint:p3]];
+        CGPoint p4 = CGPointMake(size.width/2- 50,size.height/2-50);
+        [pointArray addObject:[NSValue valueWithCGPoint:p4]];
+        shape = [cShape makeShapeWith:pointArray layer:self];
+        [self addChild:ball z:3];
+        [self scheduleUpdate];
     }
     return self;    
 }
@@ -65,7 +78,19 @@
 }
 
 -(void) newGame:(id) sender{
+    perfs = [NSUserDefaults standardUserDefaults];
+    [perfs setObject:[NSNumber numberWithDouble:[ball getCenter].x] forKey:@"x"];
+    [perfs setObject:[NSNumber numberWithDouble:[ball getCenter].y] forKey:@"y"];
+    [perfs synchronize];
     [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+}
+
+-(void) update:(ccTime) dt{
+    if(shape != NULL){
+        if([shape interWithBall:ball]){
+            return;
+        }
+    }
 }
 
 @end

@@ -13,6 +13,7 @@
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 #import "cLine.h"
+#import "openView.h"
 #pragma mark - HelloWorldLayer
 
 // HelloWorldLayer implementation
@@ -42,19 +43,11 @@
         size = [[CCDirector sharedDirector] winSize];
         [self initLabels];
         [self initMenu];
-        [self initBack];
-        /*
-         prefs = [NSUserDefaults standardUserDefaults];
-         NSDictionary* user = [prefs objectForKey:@"currentUser"];
-         if(user == NULL){
-         user = [[NSDictionary alloc] init];
-         [prefs setObject:user forKey:@"currentUser"];
-         [prefs synchronize];
-         }
-         NSMutableDictionary* u = [NSMutableDictionary dictionaryWithDictionary:user];*/
-        lifes = 3;
+        //[self initBack];
         
-        ball = [cBall makeBallWithRad:10 atPos:CGPointMake(size.width/2, size.height/2)];
+        lifes = 3;
+        prefs = [NSUserDefaults standardUserDefaults];
+        ball = [cBall makeBallWithRad:10 atPos:CGPointMake([[prefs objectForKey:@"x"] doubleValue], [[prefs objectForKey:@"y"] doubleValue])];
         [self addChild:ball z:3];
 		self.isTouchEnabled = YES;
         currentLine = [[cLine alloc]init];
@@ -104,7 +97,7 @@
     scoreLabel.position = ccp(125,size.height - 50);
     [self addChild:scoreLabel z:3];
     
-    infoLabel = [CCLabelTTF labelWithString:@"info label" fontName:@"Marker Felt" fontSize:25];
+    infoLabel = [CCLabelTTF labelWithString:@"info label" fontName:@"TimesNewRomanPSMT" fontSize:25];
     infoLabel.position = ccp(size.width/2, size.height/2 + 50);
     infoLabel.visible = NO;
     [self addChild:infoLabel z:3];
@@ -115,10 +108,16 @@
 -(void) initMenu{
     [CCMenuItemFont setFontSize:20];
     CCMenuItem* reGame = [CCMenuItemFont itemWithString:@"Try Again" target:self selector:@selector(reGame:)];
-    buttonMenu = [CCMenu menuWithItems:reGame, nil];
+    CCMenuItem* endGame = [CCMenuItemFont itemWithString:@"End Game" target:self selector:@selector(endGame:)];
+    buttonMenu = [CCMenu menuWithItems:reGame,endGame, nil];
+    [buttonMenu alignItemsVertically];
     buttonMenu.position = ccp(infoLabel.position.x, infoLabel.position.y - 50);
     buttonMenu.visible = NO;
     [self addChild:buttonMenu z:3];
+}
+
+-(void) endGame:(id) sender{
+    [[CCDirector sharedDirector] replaceScene:[openView scene]];
 }
 
 -(void) reGame:(id) sender{
