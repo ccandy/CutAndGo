@@ -136,6 +136,7 @@
 		7F74FE9B17EA7C61007D958F /* cBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74FE9A17EA7C61007D958F /* cBall.m */; };
 		7F74FE9E17EA80F2007D958F /* cShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74FE9D17EA80F2007D958F /* cShape.m */; };
 		7F74FEA117EA8488007D958F /* cLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74FEA017EA8487007D958F /* cLine.m */; };
+		7FBDBB91182A03DF0049EF01 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7FBDBB90182A03DF0049EF01 /* back.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -407,6 +408,7 @@
 		7F74FE9D17EA80F2007D958F /* cShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cShape.m; sourceTree = "<group>"; };
 		7F74FE9F17EA8487007D958F /* cLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cLine.h; sourceTree = "<group>"; };
 		7F74FEA017EA8487007D958F /* cLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cLine.m; sourceTree = "<group>"; };
+		7FBDBB90182A03DF0049EF01 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = back.jpg; path = Resources/back.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +488,7 @@
 				7F74FD0A17EA1FBA007D958F /* Default-Landscape~ipad.png */,
 				7F74FD0C17EA1FBA007D958F /* fps_images.png */,
 				7F74FD0E17EA1FBA007D958F /* fps_images-hd.png */,
+				7FBDBB90182A03DF0049EF01 /* back.jpg */,
 				7F74FD1017EA1FBA007D958F /* fps_images-ipadhd.png */,
 				7F74FD1217EA1FBA007D958F /* Icon-72.png */,
 				7F74FD1417EA1FBA007D958F /* Icon-Small-50.png */,
@@ -909,6 +912,7 @@
 				7F74FD0B17EA1FBA007D958F /* Default-Landscape~ipad.png in Resources */,
 				7F74FD0D17EA1FBA007D958F /* fps_images.png in Resources */,
 				7F74FD0F17EA1FBA007D958F /* fps_images-hd.png in Resources */,
+				7FBDBB91182A03DF0049EF01 /* back.jpg in Resources */,
 				7F74FD1117EA1FBA007D958F /* fps_images-ipadhd.png in Resources */,
 				7F74FD1317EA1FBA007D958F /* Icon-72.png in Resources */,
 				7F74FD1517EA1FBA007D958F /* Icon-Small-50.png in Resources */,

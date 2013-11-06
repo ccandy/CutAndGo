@@ -42,6 +42,7 @@
         size = [[CCDirector sharedDirector] winSize];
         [self initLabels];
         [self initMenu];
+        [self initBack];
         /*
          prefs = [NSUserDefaults standardUserDefaults];
          NSDictionary* user = [prefs objectForKey:@"currentUser"];
@@ -77,6 +78,14 @@
 }
 
 // on "dealloc" you need to release all your retained objects
+
+-(void) initBack{
+    CCSprite* back = [CCSprite spriteWithFile:@"back.jpg"];
+    back.scaleX = size.width/back.contentSize.width;
+    back.scaleY = size.height/back.contentSize.height;
+    back.anchorPoint = ccp(0,0);
+    [self addChild:back z:1];
+}
 
 -(void) initLabels{
     CCLabelTTF* l1 = [CCLabelTTF labelWithString:@"Life: " fontName:@"Marker Felt" fontSize:25];

@@ -37,6 +37,7 @@
 }
 
 -(void) draw{
+    glLineWidth(1.0f);
     ccDrawLine(startPoint, endPoint);
 }
 
