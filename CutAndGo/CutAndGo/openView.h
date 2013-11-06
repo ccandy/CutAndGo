@@ -10,7 +10,8 @@
 #import "cocos2d.h"
 
 @interface openView : CCLayer {
-    
+    CGSize size;
+    CCMenu* gameMenu;
 }
 
 +(CCScene*) scene;

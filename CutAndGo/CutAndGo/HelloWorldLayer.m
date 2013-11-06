@@ -188,10 +188,6 @@
         }
         currentLine.endPoint = currentLine.startPoint;
     }
-    
-    
-    
-    
 }
 
 -(void) update:(ccTime) dt{
