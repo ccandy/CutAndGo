@@ -137,6 +137,7 @@
 		7F74FE9E17EA80F2007D958F /* cShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74FE9D17EA80F2007D958F /* cShape.m */; };
 		7F74FEA117EA8488007D958F /* cLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74FEA017EA8487007D958F /* cLine.m */; };
 		7FBDBB91182A03DF0049EF01 /* back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7FBDBB90182A03DF0049EF01 /* back.jpg */; };
+		7FBDBB95182A0CCD0049EF01 /* openView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBDBB94182A0CCD0049EF01 /* openView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -409,6 +410,8 @@
 		7F74FE9F17EA8487007D958F /* cLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cLine.h; sourceTree = "<group>"; };
 		7F74FEA017EA8487007D958F /* cLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cLine.m; sourceTree = "<group>"; };
 		7FBDBB90182A03DF0049EF01 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = back.jpg; path = Resources/back.jpg; sourceTree = "<group>"; };
+		7FBDBB93182A0CCD0049EF01 /* openView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openView.h; sourceTree = "<group>"; };
+		7FBDBB94182A0CCD0049EF01 /* openView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -467,6 +470,7 @@
 		7F74FD0617EA1FB9007D958F /* CutAndGo */ = {
 			isa = PBXGroup;
 			children = (
+				7FBDBB92182A0C840049EF01 /* Game Views */,
 				7F74FE9817EA7C3A007D958F /* Game Object */,
 				7F74FE7E17EA1FBE007D958F /* AppDelegate.h */,
 				7F74FE7F17EA1FBE007D958F /* AppDelegate.m */,
@@ -858,6 +862,15 @@
 			name = "Game Object";
 			sourceTree = "<group>";
 		};
+		7FBDBB92182A0C840049EF01 /* Game Views */ = {
+			isa = PBXGroup;
+			children = (
+				7FBDBB93182A0CCD0049EF01 /* openView.h */,
+				7FBDBB94182A0CCD0049EF01 /* openView.m */,
+			);
+			name = "Game Views";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -998,6 +1011,7 @@
 				7F74FDF717EA1FBD007D958F /* CCES2Renderer.m in Sources */,
 				7F74FDFB17EA1FBD007D958F /* CCGLView.m in Sources */,
 				7F74FDFF17EA1FBD007D958F /* CCTouchDispatcher.m in Sources */,
+				7FBDBB95182A0CCD0049EF01 /* openView.m in Sources */,
 				7F74FE0217EA1FBD007D958F /* CCTouchHandler.m in Sources */,
 				7F74FE0617EA1FBD007D958F /* CCDirectorMac.m in Sources */,
 				7F74FE0917EA1FBD007D958F /* CCEventDispatcher.m in Sources */,
